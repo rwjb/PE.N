@@ -31,3 +31,4 @@ def product(L):
     for e in L: ret *= e
     return ret
 print(max(product(i) for i in straights))
+input()
