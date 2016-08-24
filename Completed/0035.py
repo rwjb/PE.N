@@ -1,56 +1,46 @@
-class Primes:
-    def __init__(self):
-        self.p_list = [2,3]
-        self.primes = set(self.p_list)
-        self.high = 3
+from time import time
+def rwh_primes2(n):
+    # http://stackoverflow.com/questions/2068372/fastest-way-to-list-all-primes-below-n/3035188
+    correction = (n%6>1)
+    n = {0:n,1:n-1,2:n+4,3:n+3,4:n+2,5:n+1}[n%6]
+    sieve = [True] * (n//3)
+    sieve[0] = False
+    for i in range(int(n**0.5)//3+1):
+      if sieve[i]:
+        k=3*i+1|1
+        sieve[      ((k*k)//3)      ::2*k]=[False]*((n//6-(k*k)//6-1)//k+1)
+        sieve[(k*k+4*k-2*k*(i&1))//3::2*k]=[False]*((n//6-(k*k+4*k-2*k*(i&1))//6-1)//k+1)
+    return [2,3] + [3*i+1|1 for i in range(1,n//3-correction) if sieve[i]]
 
-        self.base = 0
-        self.mod  = 1
-    def is_prime(self, num):
-        while True:
-            if num in self.primes: return True
-            if num < self.high: return False
-            self.high = self.calc_primes()
-    def calc_primes(self):
-        # all primes other than 2,3 can be expressed as 6k+/-1
-        while True:
-            if 0 < self.mod: self.base += 6
-            self.mod *= -1
-            num = self.base + self.mod
-            p_cap = int(num ** 0.5)
-            is_prime = True
-            for p in self.p_list:
-                if p_cap < p: break
-                if num % p == 0:
-                    is_prime = False
-                    break
-            if is_prime:
-                self.primes.add(num)
-                self.p_list.append(num)
-                return num
+start = time()
+primes = set(rwh_primes2(1000000))
+print(time() - start)
 
+start = time()
 circular_nums = [set([2,5])]
-for c in range(1000000):
+for c in primes:
     hold = set()
     char = str(c)
-    valid = True
-    for i in range(len(char)):
-        if char[i] in ['0','2','4','5','6','8']:
-            valid = False
+    skip = False
+    for i in char:
+        if i in ['0','2','4','5','6','8']:
+            skip = True
             break
-        num = int(char[i:] + char[:i])
-        hold.add(num)
-    if valid:
-        circular_nums.append(hold)
+    if skip: continue
+    for i in range(len(char)):
+        hold.add(int(char[i:] + char[:i]))
+    circular_nums.append(hold)
+print(time() - start)
 
-p = Primes()
+start = time()
 circular_primes = set()
 for nums in circular_nums:
     all_prime = True
     for num in nums:
-        if not p.is_prime(num):
+        if num not in primes:
             all_prime = False
             break
     if all_prime: circular_primes.update(nums)
+print(time() - start)
 
 print(len(circular_primes))
