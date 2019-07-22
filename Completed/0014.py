@@ -1,8 +1,7 @@
 def coll(n):
     yield n
     while n != 1:
-        if n % 2 == 0: n = n / 2
-        else:          n = 3 * n + 1
+        n = 3*n + 1 if n % 2 else n/2
         yield n
 '''
 # brute forced
@@ -14,7 +13,8 @@ for i in range(1,1000000):
         big = temp
 print(j)
 '''
-# memory
+# not a linked list!
+# only gens path until intersects known descent which includes known depth
 class Link:
     def __init__(self,nxt=None):
         self.next = nxt

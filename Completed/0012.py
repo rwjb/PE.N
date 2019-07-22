@@ -1,3 +1,5 @@
+# brute force
+# better with something something prime list?
 def divisors(num):
     cap = int(num ** .5)
     out = sum(2 for i in range(1,cap+1) if not num % i)

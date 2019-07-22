@@ -1,12 +1,11 @@
-out = []
+out = 0
 weekday = 1 # sunday = 0
-weekday += sum([31,28,31,30,31,30,31,31,30,31,30,31])
-for year in range(1901,2001):
-    feb = 28
-    if year % 4 == 0: feb = 29
-    for month in [31,feb,31,30,31,30,31,31,30,31,30,31]:
-        out += [weekday]
+weekday += sum([3,0,3,2,3,2,3,3,2,3,2,3])
+while weekday > 0: weekday -= 7
+for year in range(1901,2000+1):
+    feb = 0 if year % 4 else 1
+    for month in [3,feb,3,2,3,2,3,3,2,3,2,3]:
+        if weekday == 0: out += 1
         weekday += month
-out = [i % 7 for i in out]
-out = [1 if i==0 else 0 for i in out]
-print(sum(out))
+        if weekday > 0: weekday -= 7
+print(out)

@@ -1,3 +1,4 @@
+# might be better to just use pure sieve of 1..sqrt(N)
 def gen_prime():
     yield 2
     yield 3
@@ -20,6 +21,6 @@ def gen_prime():
             yield num
 s = 0
 for prime in gen_prime():
-    if 2000000 <= prime: break
+    if 2000000 < prime: break
     s += prime
 print(s)

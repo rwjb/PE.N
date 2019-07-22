@@ -1,6 +1,6 @@
-f = open("p067_triangle.txt")
-nums = [[int(token) for token in line.split()] for line in f]
-f.close()
+# 0018.py, This Time You Can't Brute Force
+with open("p067_triangle.txt") as f:
+    nums = [ [int(token) for token in line.split()] for line in f ]
 
 for row in range(len(nums)-2,-1,-1):
     for col in range(len(nums[row])):

@@ -7,9 +7,8 @@ def gen_prime():
         num += 2
         for p in primes:
             if num % p == 0:
-                is_prime = False
                 break
-        if is_prime:
+        else:
             primes += [num]
             yield num
 from itertools import islice

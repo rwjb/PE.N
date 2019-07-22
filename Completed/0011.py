@@ -18,17 +18,15 @@ nums = [[ 8, 2,22,97,38,15, 0,40, 0,75, 4, 5, 7,78,52,12,50,77,91, 8],
         [20,69,36,41,72,30,23,88,34,62,99,69,82,67,59,85,74, 4,36,16],
         [20,73,35,29,78,31,90, 1,74,31,49,71,48,86,81,16,23,57, 5,54],
         [ 1,70,54,71,83,51,54,69,16,92,33,48,61,43,52, 1,89,19,67,48]]
-straights = []
-for x in range(20-3):
-    for y in range(20-3):
-        straights += [(nums[x][y],nums[x+1][y+1],nums[x+2][y+2],nums[x+3][y+3])]
-        straights += [(nums[x][y],nums[x][y+1],nums[x][y+2],nums[x][y+3])]
-        straights += [(nums[x][y],nums[x+1][y],nums[x+2][y],nums[x+3][y])]
-        straights += [(nums[x+3][y],nums[x+2][y+1],nums[x+1][y+2],nums[x][y+3])]
-straights = [straight for straight in straights if 0 not in straight]
 def product(L):
     ret = 1
     for e in L: ret *= e
     return ret
-print(max(product(i) for i in straights))
-input()
+out = 0
+for x in range(20-3):
+    for y in range(20-3):
+        out = max(out, product( [nums[x+i][y+i] for i in range(4)] ) )   # diag
+        out = max(out, product( [nums[x  ][y+i] for i in range(4)] ) )   # vert
+        out = max(out, product( [nums[x+i][y  ] for i in range(4)] ) )   # horz
+        out = max(out, product( [nums[x+3-i][y+i] for i in range(4)] ) ) # r.di
+print(out)

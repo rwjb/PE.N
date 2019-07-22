@@ -1,3 +1,4 @@
+# can be done top down or bottom up with similar strategy (add max of adj)
 nums=[
 [75],
 [95,64],

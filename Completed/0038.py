@@ -1,7 +1,5 @@
 def is_pandigital(n):
-    l = list(str(n))
-    l.sort()
-    return ''.join(l) == '123456789'
+    return ''.join(sorted(list(str(n)))) == '123456789'
 def gen(n):
     out = ""
     i = 0
