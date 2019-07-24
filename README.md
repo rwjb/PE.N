@@ -1,1 +1,1 @@
-![alt text](https://projecteuler.net/profile/rwjb.png "Project Euler badge")
+![PE.N Badge](https://projecteuler.net/profile/rwjb.png?)
