@@ -18,6 +18,19 @@ def build_primes(target):
 def is_prime(n):
     build_primes(n)
     return n in primes
+def is_prime_fast(n):
+    if n == 1: return False
+    if n in [2, 3, 5]: return True
+    if n % 2 == 0: return False
+    if n % 6 not in [1, 5]: return False
+
+    i, j = 3, 1
+    while i * i <= n:
+        if n % i == 0: return False
+        j += 1
+        i = primes[j] if j < len(primes) else i + 2
+
+    return True
 
 if __name__=='__main__':
     build_primes(30)
